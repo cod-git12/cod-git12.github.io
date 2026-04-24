@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cod-git12 | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --header-gradient: linear-gradient(180deg, #1c2128 0%, #0d1117 100%);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            padding: 50px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: var(--header-gradient);
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+        }
+
+        h1 { margin: 10px 0; font-size: 2.2rem; color: #fff; }
+        .bio { color: #8b949e; margin-bottom: 25px; font-size: 1.1rem; }
+
+        .ad-space {
+            margin: 20px auto;
+            width: 300px;
+            min-height: 250px;
+            background: rgba(22, 27, 34, 0.5);
+            border: 1px dashed var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main {
+            max-width: 1000px;
+            width: 90%;
+            padding: 50px 0;
+        }
+
+        .section-title {
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background: #1c2128;
+        }
+
+        .project-card i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 { margin: 0 0 10px 0; color: #fff; font-size: 1.3rem; }
+        .project-card p { font-size: 0.95rem; color: #8b949e; line-height: 1.6; margin: 0; }
+        
+        .tag {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(88, 166, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            align-self: flex-start;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            color: #8b949e;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .project-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://github.com/cod-git12.png" alt="Avatar" class="avatar">
+    <h1>cod-git12</h1>
+    <p class="bio">Web Developer / Coder</p>
+    
+    <div class="ad-space">
+        <script src="https://adm.shinobi.jp/s/1cce5f105ce057d5473198129dcc5afa"></script>
+        </div>
+</header>
+
+<main>
+    <h2 class="section-title">Works & Projects</h2>
+    <div class="project-grid">
+        
+        <a href="https://cod-git12.github.io/Earthquake-Viewer/" class="project-card">
+            <i class="fa-solid fa-house-signal"></i>
+            <h3>Earthquake Viewer</h3>
+            <p>リアルタイム地震監視アプリ。強震モニタ風のデザインとLeafletによる地図表示を統合。</p>
+            <span class="tag">GitHub Pages</span>
+        </a>
+
+        <a href="https://online-chatapp.vercel.app" class="project-card">
+            <i class="fa-solid fa-comments"></i>
+            <h3>Nexus (Online Chatapp)</h3>
+            <p>SNS風のデザインを採用したオンラインチャットアプリ。ブラウザで手軽に交流可能。</p>
+            <span class="tag">Vercel</span>
+        </a>
+
+        <a href="https://voxel-sandbox-seven.vercel.app" class="project-card">
+            <i class="fa-solid fa-cubes"></i>
+            <h3>Voxel Sandbox</h3>
+            <p>3D空間でボクセルを配置して遊べるサンドボックスゲームプロジェクト。</p>
+            <span class="tag">Vercel</span>
+        </a>
+
+        <a href="https://cod-git12.github.io/Bloxd_Launcher/" class="project-card">
+            <i class="fa-solid fa-rocket"></i>
+            <h3>Bloxd Launcher</h3>
+            <p>Bloxd.ioを様々なサイト経由でプレイするためのランチャー。利便性を追求。</p>
+            <span class="tag">GitHub Pages</span>
+        </a>
+
+        <a href="https://cod-git12.github.io/discord-webhook-sender/" class="project-card">
+            <i class="fa-brands fa-discord"></i>
+            <h3>Discord Webhook Sender</h3>
+            <p>DiscordのWebhook機能を利用して、ブラウザから簡単にメッセージを送信できるツール。</p>
+            <span class="tag">GitHub Pages</span>
+        </a>
+
+        <a href="https://tool-launcher.vercel.app" class="project-card">
+            <i class="fa-solid fa-toolbox"></i>
+            <h3>Tool Launcher</h3>
+            <p>自作の様々な便利ツールを一つにまとめた統合ポータルサイト。</p>
+            <span class="tag">Vercel</span>
+        </a>
+
+        <a href="https://cod-git12.github.io/Statistics_Calculator_app/" class="project-card">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Statistics Calculator</h3>
+            <p>代表値の計算、データの並び替え、グラフによる可視化をサポートする統計アプリ。</p>
+            <span class="tag">GitHub Pages</span>
+        </a>
+
+        <a href="https://cod-git12.github.io/Minecraft/" class="project-card">
+            <i class="fa-solid fa-pickaxe"></i>
+            <h3>Minecraft Clone</h3>
+            <p>マインクラフトの世界観をブラウザ上で再現したサンドボックスゲーム。</p>
+            <span class="tag">GitHub Pages</span>
+        </a>
+
+        <a href="https://cod-git12.github.io/Frequency_Table_app/" class="project-card">
+            <i class="fa-solid fa-table-list"></i>
+            <h3>Frequency Table app</h3>
+            <p>データ入力から度数分布表を自動生成し、統計学習をサポートするアプリ。</p>
+            <span class="tag">GitHub Pages</span>
+        </a>
+
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 cod-git12. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
