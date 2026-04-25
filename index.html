@@ -77,7 +77,7 @@
         .bg-notice {
             position: absolute;
             inset: 0;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -285,6 +285,20 @@
             margin-bottom: 20px;
         }
 
+        .modal-reload {
+            width: 100%;
+            padding: 0.65rem;
+            background: #ffff34;
+            border: none;
+            color: #030507;
+            border-radius: 8px;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem
+        }
+
         @media (max-width: 768px) {
             .promo-flex {
                 flex-direction: column;
@@ -404,6 +418,7 @@
                 <li><strong>AdBlock / AdGuard:</strong> アイコンをクリックし「このサイトで一時停止」を選択。</li>
                 <li><strong>Brave:</strong> ライオンアイコンをクリックし「シールド」をOFF。</li>
                 <li>解除後、ページを<strong>再読み込み</strong>してください。</li>
+                <button class="modal-reload" onclick="location.reload();">再読み込み</button>
             </ul>
         </div>
     </div>
@@ -429,7 +444,7 @@
             const closePopup = document.getElementById('close-popup');
 
             let hasLeft = false;
-            const COOLDOWN = 10 * 60 * 1000;
+            const COOLDOWN = 15 * 60 * 1000;
 
             triggers.forEach(t => t.onclick = () => guideModal.style.display = 'flex');
             closeModal.onclick = () => guideModal.style.display = 'none';
@@ -449,7 +464,32 @@
                 }
             });
 
-            closePopup.onclick = () => revisitPopup.style.display = 'none';
+            closePopup.onclick = () => revisitPopup.style.display = 'none'; const checkAds = () => {
+                const frames = document.querySelectorAll('.item-frame, .wide-item-frame');
+
+                frames.forEach(frame => {
+                    const container = frame.querySelector('.script-container');
+                    const notice = frame.querySelector('.bg-notice');
+                    if (!container || !notice) return;
+
+                    const adElement = container.querySelector('iframe, ins, div, a, img');
+
+                    if (adElement && adElement.offsetHeight > 10) {
+                        notice.style.display = 'none';
+                    } else {
+                        notice.style.display = 'flex';
+                    }
+                });
+            };
+
+            window.addEventListener('load', () => {
+                let attempts = 0;
+                const checkInterval = setInterval(() => {
+                    checkAds();
+                    attempts++;
+                    if (attempts > 5) clearInterval(checkInterval);
+                }, 1500);
+            });
         });
     </script>
 </body>
