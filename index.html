@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,18 +44,92 @@
             box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
         }
 
-        h1 { margin: 10px 0; font-size: 2.2rem; color: #fff; }
-        .bio { color: #8b949e; margin-bottom: 25px; font-size: 1.1rem; }
+        h1 {
+            margin: 10px 0;
+            font-size: 2.2rem;
+            color: #fff;
+        }
 
-        .ad-space {
-            margin: 20px auto;
+        .bio {
+            color: #8b949e;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .promo-flex {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .item-frame {
+            position: relative;
             width: 300px;
-            min-height: 250px;
-            background: rgba(22, 27, 34, 0.5);
-            border: 1px dashed var(--border);
+            height: 250px;
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bg-notice {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .bg-notice p {
+            font-size: 0.85rem;
+            color: #8b949e;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .btn-link {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: underline;
+            cursor: pointer !important;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .script-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            pointer-events: none;
+        }
+
+        .script-container>* {
+            pointer-events: auto;
+        }
+
+        .wide-item-frame {
+            position: relative;
+            width: 100%;
+            max-width: 728px;
+            height: 90px;
+            margin: 40px auto;
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
         main {
@@ -102,9 +177,19 @@
             margin-bottom: 15px;
         }
 
-        .project-card h3 { margin: 0 0 10px 0; color: #fff; font-size: 1.3rem; }
-        .project-card p { font-size: 0.95rem; color: #8b949e; line-height: 1.6; margin: 0; }
-        
+        .project-card h3 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            font-size: 1.3rem;
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            color: #8b949e;
+            line-height: 1.6;
+            margin: 0;
+        }
+
         .tag {
             display: inline-block;
             margin-top: 15px;
@@ -126,96 +211,247 @@
             text-align: center;
         }
 
-        @media (max-width: 600px) {
-            .project-grid { grid-template-columns: 1fr; }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 450px;
+            width: 85%;
+            position: relative;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #8b949e;
+        }
+
+        .modal-content h3 {
+            color: #fff;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .modal-content ul {
+            padding-left: 20px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .popup-window {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10001;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-close-btn {
+            width: 45px;
+            height: 45px;
+            background: #fff;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .promo-flex {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<header>
-    <img src="https://github.com/cod-git12.png" alt="Avatar" class="avatar">
-    <h1>cod-git12</h1>
-    <p class="bio">Web Developer / Coder</p>
-    
-    <div class="ad-space">
-        <script src="https://adm.shinobi.jp/s/1cce5f105ce057d5473198129dcc5afa"></script>
+    <header>
+        <img src="https://github.com/cod-git12.png" alt="Avatar" class="avatar">
+        <h1>cod-git12</h1>
+        <p class="bio">Web Developer / Coder</p>
+
+        <div class="promo-flex">
+            <div class="item-frame">
+                <div class="bg-notice">
+                    <p>Adblockにより表示が制限されています。<br>解除して開発を応援しませんか？</p>
+                    <span class="btn-link trigger-guide">[解除方法を表示]</span>
+                </div>
+                <div class="script-container">
+                    <script src="https://adm.shinobi.jp/s/1cce5f105ce057d5473198129dcc5afa"></script>
+                </div>
+            </div>
+            <div class="item-frame">
+                <div class="bg-notice">
+                    <p>開発維持のため、広告ブロックの解除を<br>ご検討いただけますと幸いです。</p>
+                    <span class="btn-link trigger-guide">[解除方法を表示]</span>
+                </div>
+                <div class="script-container">
+                    <script src="https://adm.shinobi.jp/s/1cce5f105ce057d5473198129dcc5afa"></script>
+                </div>
+            </div>
         </div>
-</header>
+    </header>
 
-<main>
-    <h2 class="section-title">Works & Projects</h2>
-    <div class="project-grid">
-        
-        <a href="https://cod-git12.github.io/Earthquake-Viewer/" class="project-card">
-            <i class="fa-solid fa-house-signal"></i>
-            <h3>Earthquake Viewer</h3>
-            <p>リアルタイム地震監視アプリ。強震モニタ風のデザインとLeafletによる地図表示を統合。</p>
-            <span class="tag">GitHub Pages</span>
-        </a>
+    <main>
+        <h2 class="section-title">Works & Projects</h2>
+        <div class="project-grid">
+            <a href="https://cod-git12.github.io/Earthquake-Viewer/" class="project-card">
+                <i class="fa-solid fa-house-signal"></i>
+                <h3>Earthquake Viewer</h3>
+                <p>リアルタイム地震監視アプリ。強震モニタ風のデザインと地図表示を統合。</p>
+                <span class="tag">GitHub Pages</span>
+            </a>
+            <a href="https://online-chatapp.vercel.app" class="project-card">
+                <i class="fa-solid fa-comments"></i>
+                <h3>Nexus (Online Chatapp)</h3>
+                <p>SNS風のデザインを採用したオンラインチャットアプリ。</p>
+                <span class="tag">Vercel</span>
+            </a>
+            <a href="https://voxel-sandbox-seven.vercel.app" class="project-card">
+                <i class="fa-solid fa-cubes"></i>
+                <h3>Voxel Sandbox</h3>
+                <p>3D空間でボクセルを配置して遊べるサンドボックスゲーム。</p>
+                <span class="tag">Vercel</span>
+            </a>
+            <a href="https://cod-git12.github.io/Bloxd_Launcher/" class="project-card">
+                <i class="fa-solid fa-rocket"></i>
+                <h3>Bloxd Launcher</h3>
+                <p>Bloxd.ioを様々なサイト経由でプレイするためのランチャー。</p>
+                <span class="tag">GitHub Pages</span>
+            </a>
+            <a href="https://cod-git12.github.io/discord-webhook-sender/" class="project-card">
+                <i class="fa-brands fa-discord"></i>
+                <h3>Discord Webhook Sender</h3>
+                <p>Webhook機能を利用してメッセージを送信できるツール。</p>
+                <span class="tag">GitHub Pages</span>
+            </a>
+            <a href="https://tool-launcher.vercel.app" class="project-card">
+                <i class="fa-solid fa-toolbox"></i>
+                <h3>Tool Launcher</h3>
+                <p>自作の様々な便利ツールをまとめた統合ポータルサイト。</p>
+                <span class="tag">Vercel</span>
+            </a>
+            <a href="https://cod-git12.github.io/Statistics_Calculator_app/" class="project-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>Statistics Calculator</h3>
+                <p>統計計算、並び替え、グラフ化をサポートするアプリ。</p>
+                <span class="tag">GitHub Pages</span>
+            </a>
+            <a href="https://cod-git12.github.io/Minecraft/" class="project-card">
+                <i class="fa-solid fa-cube"></i>
+                <h3>Minecraft Clone</h3>
+                <p>マインクラフトの世界観をブラウザ上で再現。</p>
+                <span class="tag">GitHub Pages</span>
+            </a>
+            <a href="https://cod-git12.github.io/Frequency_Table_app/" class="project-card">
+                <i class="fa-solid fa-table-list"></i>
+                <h3>Frequency Table app</h3>
+                <p>度数分布表を自動生成し、統計学習をサポート。</p>
+                <span class="tag">GitHub Pages</span>
+            </a>
+        </div>
+    </main>
 
-        <a href="https://online-chatapp.vercel.app" class="project-card">
-            <i class="fa-solid fa-comments"></i>
-            <h3>Nexus (Online Chatapp)</h3>
-            <p>SNS風のデザインを採用したオンラインチャットアプリ。ブラウザで手軽に交流可能。</p>
-            <span class="tag">Vercel</span>
-        </a>
-
-        <a href="https://voxel-sandbox-seven.vercel.app" class="project-card">
-            <i class="fa-solid fa-cubes"></i>
-            <h3>Voxel Sandbox</h3>
-            <p>3D空間でボクセルを配置して遊べるサンドボックスゲームプロジェクト。</p>
-            <span class="tag">Vercel</span>
-        </a>
-
-        <a href="https://cod-git12.github.io/Bloxd_Launcher/" class="project-card">
-            <i class="fa-solid fa-rocket"></i>
-            <h3>Bloxd Launcher</h3>
-            <p>Bloxd.ioを様々なサイト経由でプレイするためのランチャー。利便性を追求。</p>
-            <span class="tag">GitHub Pages</span>
-        </a>
-
-        <a href="https://cod-git12.github.io/discord-webhook-sender/" class="project-card">
-            <i class="fa-brands fa-discord"></i>
-            <h3>Discord Webhook Sender</h3>
-            <p>DiscordのWebhook機能を利用して、ブラウザから簡単にメッセージを送信できるツール。</p>
-            <span class="tag">GitHub Pages</span>
-        </a>
-
-        <a href="https://tool-launcher.vercel.app" class="project-card">
-            <i class="fa-solid fa-toolbox"></i>
-            <h3>Tool Launcher</h3>
-            <p>自作の様々な便利ツールを一つにまとめた統合ポータルサイト。</p>
-            <span class="tag">Vercel</span>
-        </a>
-
-        <a href="https://cod-git12.github.io/Statistics_Calculator_app/" class="project-card">
-            <i class="fa-solid fa-chart-line"></i>
-            <h3>Statistics Calculator</h3>
-            <p>代表値の計算、データの並び替え、グラフによる可視化をサポートする統計アプリ。</p>
-            <span class="tag">GitHub Pages</span>
-        </a>
-
-        <a href="https://cod-git12.github.io/Minecraft/" class="project-card">
-            <i class="fa-solid fa-cube"></i>
-            <h3>Minecraft Clone</h3>
-            <p>マインクラフトの世界観をブラウザ上で再現したサンドボックスゲーム。</p>
-            <span class="tag">GitHub Pages</span>
-        </a>
-
-        <a href="https://cod-git12.github.io/Frequency_Table_app/" class="project-card">
-            <i class="fa-solid fa-table-list"></i>
-            <h3>Frequency Table app</h3>
-            <p>データ入力から度数分布表を自動生成し、統計学習をサポートするアプリ。</p>
-            <span class="tag">GitHub Pages</span>
-        </a>
-
+    <div class="wide-item-frame">
+        <div class="bg-notice">
+            <p>広告を許可してプロジェクトを支援してください。<span class="btn-link trigger-guide">[解除方法]</span></p>
+        </div>
+        <div class="script-container">
+            <script src="https://adm.shinobi.jp/s/ab53a25b8283ad3d9bb8d3f6572f780d"></script>
+        </div>
     </div>
-</main>
 
-<footer>
-    <p>&copy; 2026 cod-git12. All Rights Reserved.</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 cod-git12. All Rights Reserved.</p>
+    </footer>
 
+    <div id="guide-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-icon" id="close-modal">&times;</span>
+            <h3>Adblock解除のお願い</h3>
+            <ul>
+                <li><strong>AdBlock / AdGuard:</strong> アイコンをクリックし「このサイトで一時停止」を選択。</li>
+                <li><strong>Brave:</strong> ライオンアイコンをクリックし「シールド」をOFF。</li>
+                <li>解除後、ページを<strong>再読み込み</strong>してください。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="revisit-popup" class="popup-window">
+        <div class="popup-close-btn" id="close-popup">&times;</div>
+        <div class="item-frame" style="border-color: #58a6ff;">
+            <div class="bg-notice">
+                <p>おかえりなさい！<br>よろしければ広告ブロックの解除をお願いします。</p>
+            </div>
+            <div class="script-container">
+                <script src="https://adm.shinobi.jp/s/1cce5f105ce057d5473198129dcc5afa"></script>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const guideModal = document.getElementById('guide-modal');
+            const closeModal = document.getElementById('close-modal');
+            const triggers = document.querySelectorAll('.trigger-guide');
+            const revisitPopup = document.getElementById('revisit-popup');
+            const closePopup = document.getElementById('close-popup');
+
+            let hasLeft = false;
+            const COOLDOWN = 10 * 60 * 1000;
+
+            triggers.forEach(t => t.onclick = () => guideModal.style.display = 'flex');
+            closeModal.onclick = () => guideModal.style.display = 'none';
+            window.onclick = (e) => { if (e.target == guideModal) guideModal.style.display = 'none'; };
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'hidden') {
+                    hasLeft = true;
+                } else if (document.visibilityState === 'visible' && hasLeft) {
+                    const lastTime = localStorage.getItem('last_popup_time');
+                    const now = Date.now();
+                    if (!lastTime || (now - parseInt(lastTime)) > COOLDOWN) {
+                        revisitPopup.style.display = 'flex';
+                        localStorage.setItem('last_popup_time', now.toString());
+                    }
+                    hasLeft = false;
+                }
+            });
+
+            closePopup.onclick = () => revisitPopup.style.display = 'none';
+        });
+    </script>
 </body>
+
 </html>
